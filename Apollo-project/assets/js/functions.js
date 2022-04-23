@@ -18,32 +18,34 @@ function smoothScroll(){
 
 window.addEventListener('DOMContentLoaded', (event) => {
 
-const nombreImage = 3
-let imageActive = 1;
-const slidePrec = document.querySelector('.icon-chevron-thin-left');
-const slideSuiv = document.querySelector('.icon-chevron-thin-right');
+let slides = document.getElementsByClassName("banner");
+let navlinks = document.getElementsByClassName("slider_navlink");
+let imageActive = 0;
 
-function fullSlider(){
-// Faire le code du slider ici
-	slideSuiv.addEventListener('click', function(){
-		if((imageActive * nombreImage) < 1){
-			imageActive++;
-		}
-	})
-	slidePrec.addEventListener('click', function(){
-		if(imageActive > 1){
-			imageActive--;
-		}
-	} )
+document.getElementsByClassName('.icon-chevron-thin-right next').addEventListener('click', () => {
+	changerSlide(imageActive +1)
+});
+document.getElementsByClassName('.icon-chevron-thin-left prev').addEventListener('click', () => {
+	changerSlide(imageActive -1)
+});
+
+function changerSlide(moveTo){
+	if (moveTo >= slides.length) {moveTo = 0;}
+    if (moveTo < 0) {moveTo = slides.length - 1;}
+
+	slides[imageActive].classList.toggle("active");
+    navlinks[imageActive].classList.toggle("active");
+    slides[moveTo].classList.toggle("active");
+    navlinks[moveTo].classList.toggle("active");
+
+	imageActive = moveTo;
 }
-
-fullSlider();
 })
 
+//fullSlider();
 nav();
 
 smoothScroll();
-
 
 });
 })
